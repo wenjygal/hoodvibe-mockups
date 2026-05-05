@@ -9,7 +9,6 @@
 :root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#F0F2F5;--surface:#fff;--border:#e5e5e5;--text:#1a1a1a;--text2:#555;--text3:#999}
 body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
 
-/* TOP BAR */
 .topbar{background:var(--navy);padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
 .logo{direction:ltr;display:flex;align-items:baseline;gap:0}
 .logo-main{color:#fff;font-size:24px;font-weight:700;letter-spacing:-0.5px}
@@ -17,7 +16,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .logo-social{color:rgba(255,255,255,0.75);font-size:16px}
 .topbar-meta{color:rgba(255,255,255,0.5);font-size:13px;text-align:left}
 
-/* HERO */
 .hero{background:var(--navy-dark);padding:32px 40px 36px;border-bottom:1px solid rgba(255,255,255,0.06)}
 .hero-title{color:#fff;font-size:28px;font-weight:700;margin-bottom:8px}
 .hero-sub{color:rgba(255,255,255,0.55);font-size:15px;line-height:1.6;max-width:560px}
@@ -25,7 +23,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .pill{padding:5px 14px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
 .pill span{color:var(--orange);font-weight:600}
 
-/* SECTIONS */
 .content{padding:36px 40px 60px;max-width:1200px;margin:0 auto}
 .section{margin-bottom:48px}
 .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border)}
@@ -34,13 +31,12 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .section-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#EEF3F8;color:var(--navy)}
 .section-tag.onboarding{background:#FFF0E8;color:#c0520f}
 
-/* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
 
 /* CARD */
-.card{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:box-shadow 0.18s,transform 0.18s;cursor:pointer}
+.card{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.18s,transform 0.18s}
 .card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.12);transform:translateY(-3px)}
-.card-preview{height:160px;background:linear-gradient(160deg,#EEF3F8 0%,#dde6ee 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-preview{height:160px;background:linear-gradient(160deg,#EEF3F8 0%,#dde6ee 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;text-decoration:none}
 .phone-mini{width:72px;height:130px;background:var(--navy);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.25)}
 .phone-mini-top{height:22px;background:var(--navy-dark);flex-shrink:0}
 .phone-mini-body{flex:1;background:var(--navy);display:flex;align-items:center;justify-content:center}
@@ -48,12 +44,25 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .phone-mini-nav{height:18px;background:rgba(255,255,255,0.08);flex-shrink:0}
 .card-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--navy);color:#fff}
 .card-badge.new{background:var(--orange)}
-.card-body{padding:14px 16px}
+.card-body{padding:14px 16px 10px}
 .card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
 .card-desc{font-size:12px;color:var(--text2);line-height:1.5}
-.card-link{display:inline-block;margin-top:10px;font-size:12px;color:var(--navy);font-weight:500}
+.card-open{display:inline-block;margin-top:8px;font-size:12px;color:var(--navy);font-weight:500;text-decoration:none;cursor:pointer}
 
-/* STATUS BAR */
+/* FEEDBACK */
+.card-feedback{border-top:1px solid var(--border);padding:10px 16px 14px}
+.feedback-toggle{background:none;border:none;font-size:12px;color:var(--text3);cursor:pointer;padding:0;display:flex;align-items:center;gap:5px}
+.feedback-toggle:hover{color:var(--navy)}
+.feedback-form{display:none;margin-top:10px;flex-direction:column;gap:8px}
+.feedback-form.open{display:flex}
+.feedback-name{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;color:var(--text);background:var(--bg)}
+.feedback-name:focus{border-color:var(--navy)}
+.feedback-text{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;resize:none;outline:none;color:var(--text);background:var(--bg);min-height:70px}
+.feedback-text:focus{border-color:var(--navy)}
+.feedback-submit{padding:8px 14px;background:var(--navy);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;align-self:flex-start}
+.feedback-submit:hover{background:var(--navy-dark)}
+.feedback-sent{font-size:12px;color:#2E7D32;display:none;padding:4px 0}
+
 .status-bar-bottom{background:var(--navy-dark);padding:16px 40px;display:flex;align-items:center;gap:24px}
 .status-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.55)}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
@@ -82,7 +91,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 
 <div class="content">
 
-  <!-- CORE SCREENS -->
   <div class="section">
     <div class="section-header">
       <div class="section-title">מסכי ליבה</div>
@@ -91,85 +99,109 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
     </div>
     <div class="grid">
 
-      <a class="card" href="feed.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">📰</span></div>
-            <div class="phone-mini-nav"></div>
-          </div>
-        </div>
+      <div class="card">
+        <a class="card-preview" href="feed.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">📰</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">פיד שכונתי</div>
           <div class="card-desc">פוסטים עם קטגוריות, reactions, כפתור WhatsApp, כרטיס פוסט מלא</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="feed.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="post.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">💬</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'פיד שכונתי')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="post.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">💬</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">פוסט מלא</div>
           <div class="card-desc">תצוגת פוסט מורחבת עם תגובות, reactions, כפתור WhatsApp ישיר</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="post.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="create-post.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">✍️</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'פוסט מלא')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="create-post.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">✍️</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">יצירת פוסט</div>
           <div class="card-desc">בחירת קטגוריה, כותרת, גוף, העלאת תמונות, link preview</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="create-post.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="profile.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">👤</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'יצירת פוסט')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="profile.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">👤</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">פרופיל אישי</div>
           <div class="card-desc">hero navy, צ'קבוקסי שכן, פוסטים פעילים, עריכת פרופיל</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="profile.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="marketplace.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">🛍️</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'פרופיל אישי')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="marketplace.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">🛍️</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">לוח מכירות</div>
           <div class="card-desc">גריד 2 עמודות, קטגוריות, free/sold badges, כפתור יצירת קשר</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="marketplace.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'לוח מכירות')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
 
-  <!-- SECONDARY SCREENS -->
   <div class="section">
     <div class="section-header">
       <div class="section-title">מסכי משנה</div>
@@ -178,55 +210,69 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
     </div>
     <div class="grid">
 
-      <a class="card" href="groups.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">👥</span></div>
-            <div class="phone-mini-nav"></div>
-          </div>
-        </div>
+      <div class="card">
+        <a class="card-preview" href="groups.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">👥</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">קבוצות</div>
           <div class="card-desc">tabs "הקבוצות שלי / גלה", badges הודעות חדשות, פעיל לאחרונה</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="groups.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="search.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">🔍</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'קבוצות')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="search.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">🔍</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">חיפוש</div>
           <div class="card-desc">חיפוש בשכונה, filter chips לפי סוג, highlight על מילת החיפוש</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="search.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="settings.html" target="_blank">
-        <div class="card-preview">
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">⚙️</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'חיפוש')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="settings.html" target="_blank">
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">⚙️</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">הגדרות</div>
           <div class="card-desc">mini profile, toggles התראות ופרטיות, sections, התנתקות</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="settings.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'הגדרות')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
 
-  <!-- ONBOARDING -->
   <div class="section">
     <div class="section-header">
       <div class="section-title">הרשמה ו-Onboarding</div>
@@ -235,69 +281,89 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
     </div>
     <div class="grid">
 
-      <a class="card" href="magic-link.html" target="_blank">
-        <div class="card-preview">
+      <div class="card">
+        <a class="card-preview" href="magic-link.html" target="_blank">
           <div class="card-badge new">שלב 1</div>
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">✉️</span></div>
-            <div class="phone-mini-nav"></div>
-          </div>
-        </div>
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">✉️</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">כניסה — Magic Link</div>
           <div class="card-desc">הזנת אימייל, כניסה ללא סיסמה, אפשרות WhatsApp</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="magic-link.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="magic-link-sent.html" target="_blank">
-        <div class="card-preview">
-          <div class="card-badge">שלב 1b</div>
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">📬</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'כניסה Magic Link')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="magic-link-sent.html" target="_blank">
+          <div class="card-badge">שלב 1b</div>
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">📬</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">בדוק את האימייל</div>
           <div class="card-desc">אישור שליחה, פתיחת אפליקציית מייל, שליחה מחדש, טיפ ספאם</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="magic-link-sent.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="neighborhood-select.html" target="_blank">
-        <div class="card-preview">
-          <div class="card-badge new">שלב 2</div>
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">📍</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'בדוק את האימייל')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="neighborhood-select.html" target="_blank">
+          <div class="card-badge new">שלב 2</div>
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">📍</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">בחירת שכונה</div>
           <div class="card-desc">progress bar, trust note ללא GPS, חיפוש שכונה, בקש שכונה חדשה</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="neighborhood-select.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
-
-      <a class="card" href="onboarding-profile.html" target="_blank">
-        <div class="card-preview">
-          <div class="card-badge new">שלב 3</div>
-          <div class="phone-mini">
-            <div class="phone-mini-top"></div>
-            <div class="phone-mini-body"><span class="screen-icon">🙋</span></div>
-            <div class="phone-mini-nav"></div>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'בחירת שכונה')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
           </div>
         </div>
+      </div>
+
+      <div class="card">
+        <a class="card-preview" href="onboarding-profile.html" target="_blank">
+          <div class="card-badge new">שלב 3</div>
+          <div class="phone-mini"><div class="phone-mini-top"></div><div class="phone-mini-body"><span class="screen-icon">🙋</span></div><div class="phone-mini-nav"></div></div>
+        </a>
         <div class="card-body">
           <div class="card-title">הגדרת פרופיל</div>
           <div class="card-desc">תמונה, שם, על עצמי, תחומי עניין — כולם אופציונליים, "דלג"</div>
-          <div class="card-link">פתח מסך ↗</div>
+          <a class="card-open" href="onboarding-profile.html" target="_blank">פתח מסך ↗</a>
         </div>
-      </a>
+        <div class="card-feedback">
+          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
+          <div class="feedback-form">
+            <input class="feedback-name" type="text" placeholder="השם שלך">
+            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
+            <button class="feedback-submit" onclick="submitFeedback(this, 'הגדרת פרופיל')">שלח הערה</button>
+            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -308,6 +374,60 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
   <div class="status-item"><div class="status-dot green"></div>שלב 1 — UX & מוקאפים: הושלם</div>
   <div class="status-item"><div class="status-dot"></div>שלב 2 — פיתוח ב-Google AI Studio: הבא</div>
 </div>
+
+<script>
+function toggleFeedback(btn) {
+  const form = btn.nextElementSibling;
+  const isOpen = form.classList.contains('open');
+  form.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '💬 הוסף הערה' : '✕ סגור';
+}
+
+function submitFeedback(btn, screenName) {
+  const form = btn.closest('.feedback-form');
+  const name = form.querySelector('.feedback-name').value.trim();
+  const comment = form.querySelector('.feedback-text').value.trim();
+  const sentMsg = form.querySelector('.feedback-sent');
+
+  if (!comment) {
+    form.querySelector('.feedback-text').focus();
+    return;
+  }
+
+  btn.textContent = 'שולח...';
+  btn.disabled = true;
+
+  fetch('https://wn8n.uppercut.tech/webhook/hoodvibe-feedback', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      מסך: screenName,
+      שם: name || 'אנונימי',
+      הערה: comment
+    })
+  })
+  .then(r => r.json())
+  .then(() => {
+    sentMsg.style.display = 'block';
+    form.querySelector('.feedback-text').value = '';
+    form.querySelector('.feedback-name').value = '';
+    btn.style.display = 'none';
+    setTimeout(() => {
+      form.classList.remove('open');
+      const toggle = form.previousElementSibling;
+      toggle.textContent = '💬 הוסף הערה';
+      sentMsg.style.display = 'none';
+      btn.style.display = '';
+      btn.textContent = 'שלח הערה';
+      btn.disabled = false;
+    }, 2500);
+  })
+  .catch(() => {
+    btn.textContent = 'שגיאה, נסה שוב';
+    btn.disabled = false;
+  });
+}
+</script>
 
 </body>
 </html>
