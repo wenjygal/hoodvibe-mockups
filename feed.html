@@ -203,5 +203,9 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
     </div>
   </div>
 </div>
+<script>
+function toggleFB(btn){var f=btn.nextElementSibling;f.style.display=f.style.display==='flex'?'none':'flex'}
+function sendFB(btn,screen){var p=btn.closest('.fb-form');var name=p.querySelector('.fb-name').value.trim();var text=p.querySelector('.fb-text').value.trim();if(!text)return;fetch('https://formspree.io/f/maqvopdr',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({screen:screen,name:name,feedback:text})});p.querySelector('.fb-sent').style.display='block';btn.style.display='none'}
+</script>
 </body>
 </html>
