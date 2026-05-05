@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — פיד שכונתי</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+.phone{width:375px;min-height:780px;background:var(--bg);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.status-bar span{color:#fff;font-size:12px;font-weight:500}
+.header{background:var(--navy);padding:12px 16px 14px;display:flex;align-items:center;justify-content:space-between}
+.logo-block{display:flex;flex-direction:column;gap:3px}
+.logo{direction:ltr;display:flex;align-items:baseline;line-height:1}
+.logo-main{color:#fff;font-size:19px;font-weight:700;letter-spacing:-0.3px}
+.logo-dot{color:var(--orange);font-size:19px;font-weight:700;margin:0 1px}
+.logo-social{color:rgba(255,255,255,0.82);font-size:13px;font-weight:400}
+.hood-sub{color:rgba(255,255,255,0.55);font-size:12px}
+.notif-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);position:absolute;top:7px;left:7px}
+.cats{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;padding:6px 14px;border-radius:20px;font-size:13px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;flex-shrink:0}
+.cat.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.feed{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;scrollbar-width:none}
+.feed::-webkit-scrollbar{display:none}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+.av1{background:#DDEAF5;color:var(--navy)}
+.av2{background:#FDE8E0;color:#8B3A1F}
+.av3{background:#E1F5EE;color:#085041}
+.card-meta .name{font-size:14px;font-weight:500;color:var(--text)}
+.card-meta .time{font-size:12px;color:var(--text3)}
+.cat-badge{font-size:11px;padding:3px 10px;border-radius:12px;font-weight:500;margin-right:auto}
+.b-navy{background:#DDEAF5;color:var(--navy)}
+.b-orange{background:#FDE8E0;color:#8B3A1F}
+.b-green{background:#E1F5EE;color:#085041}
+.card h3{font-size:15px;font-weight:500;color:var(--text);margin-bottom:6px;line-height:1.4}
+.card p{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.card-img{width:100%;height:130px;background:var(--surface2);border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.card-actions{display:flex;align-items:center;gap:6px;border-top:1px solid var(--border);padding-top:10px}
+.react-group{display:flex;gap:4px;flex:1}
+.react-btn{font-size:12px;padding:5px 10px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer}
+.react-btn.active{background:#DDEAF5;border-color:#8AAECF;color:var(--navy)}
+.int-btn{font-size:12px;padding:5px 14px;border-radius:16px;background:var(--navy);color:#fff;border:none;cursor:pointer;font-weight:500}
+.comments-count{font-size:12px;color:var(--text3);margin-right:auto}
+.navbar{height:64px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 8px;flex-shrink:0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;min-width:50px}
+.nav-item.active svg{stroke:var(--navy)}
+.nav-item.active span{color:var(--navy);font-weight:500}
+.nav-item svg{stroke:var(--text3);fill:none;width:22px;height:22px}
+.nav-item span{font-size:11px;color:var(--text3)}
+.nav-plus{width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(29,63,94,0.3);cursor:pointer;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span>9:41</span><span></span><span>●●●</span>
+  </div>
+  <div class="header">
+    <div class="logo-block">
+      <div class="logo">
+        <span class="logo-main">HoodVibe</span><span class="logo-dot">●</span><span class="logo-social">Social</span>
+      </div>
+      <div class="hood-sub">שכונת רמת אביב ג׳</div>
+    </div>
+    <div class="notif-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <div class="notif-dot"></div>
+    </div>
+  </div>
+  <div class="cats">
+    <div class="cat active">הכל</div>
+    <div class="cat">בייביסיטר</div>
+    <div class="cat">הליכת כלבים</div>
+    <div class="cat">מכירה</div>
+    <div class="cat">קרפול</div>
+    <div class="cat">שאלה לשכנים</div>
+    <div class="cat">עסקים</div>
+  </div>
+  <div class="feed">
+    <div class="card">
+      <div class="card-top">
+        <div class="avatar av1">מכ</div>
+        <div class="card-meta">
+          <div class="name">מיכל כהן</div>
+          <div class="time">לפני 12 דקות</div>
+        </div>
+        <span class="cat-badge b-navy">בייביסיטר</span>
+      </div>
+      <h3>מחפשת בייביסיטרית לסופי שבוע</h3>
+      <p>שני ילדים 4 ו-7, שישי-שבת בערב. מועדפת עם ניסיון.</p>
+      <div class="card-actions">
+        <div class="react-group">
+          <button class="react-btn active">❤ 8</button>
+          <button class="react-btn">👍 3</button>
+        </div>
+        <span class="comments-count">4 תגובות</span>
+        <button class="int-btn">מעניין אותי</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div class="avatar av2">אל</div>
+        <div class="card-meta">
+          <div class="name">אלון לוי</div>
+          <div class="time">לפני שעה</div>
+        </div>
+        <span class="cat-badge b-orange">מכירה</span>
+      </div>
+      <h3>ספה דו-מושבית — 200 ש"ח</h3>
+      <p>מצב מעולה, צבע אפור כהה. איסוף עצמאי.</p>
+      <div class="card-img">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="2" y="8" width="20" height="10" rx="2"/><path d="M6 8V6a2 2 0 0 1 4 0v2M14 8V6a2 2 0 0 1 4 0v2"/><path d="M2 14h20"/></svg>
+      </div>
+      <div class="card-actions">
+        <div class="react-group">
+          <button class="react-btn">❤ 2</button>
+          <button class="react-btn">👍 5</button>
+        </div>
+        <span class="comments-count">1 תגובה</span>
+        <button class="int-btn">מעניין אותי</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div class="avatar av3">רש</div>
+        <div class="card-meta">
+          <div class="name">רות שטיין</div>
+          <div class="time">לפני 3 שעות</div>
+        </div>
+        <span class="cat-badge b-green">שאלה לשכנים</span>
+      </div>
+      <h3>מישהו מכיר שרברב טוב בשכונה?</h3>
+      <p>יש בעיה בצנרת בבניין, צריכה המלצה.</p>
+      <div class="card-actions">
+        <div class="react-group">
+          <button class="react-btn">❤ 1</button>
+          <button class="react-btn">👍 12</button>
+        </div>
+        <span class="comments-count">9 תגובות</span>
+        <button class="int-btn">מעניין אותי</button>
+      </div>
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>פיד</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>לוח מכירות</span>
+    </div>
+    <div class="nav-plus">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>קבוצות</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>פרופיל</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

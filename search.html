@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — חיפוש</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+.phone{width:375px;min-height:780px;background:var(--bg);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.status-bar span{color:#fff;font-size:12px;font-weight:500}
+.search-header{background:var(--navy);padding:12px 16px 14px;flex-shrink:0}
+.search-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.back-btn{color:rgba(255,255,255,0.8);font-size:22px;cursor:pointer;line-height:1}
+.search-title{color:#fff;font-size:17px;font-weight:600}
+.search-bar{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.search-bar svg{stroke:rgba(255,255,255,0.6);flex-shrink:0}
+.search-input{background:none;border:none;color:#fff;font-size:15px;flex:1;outline:none}
+.search-input::placeholder{color:rgba(255,255,255,0.5)}
+.filter-row{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.filter-row::-webkit-scrollbar{display:none}
+.filter-chip{white-space:nowrap;padding:5px 12px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;flex-shrink:0}
+.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.scroll{flex:1;overflow-y:auto;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.section-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;padding:14px 16px 6px}
+.result-card{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;gap:12px;cursor:pointer}
+.result-icon{width:44px;height:44px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.result-icon svg{stroke:var(--text3)}
+.result-body{flex:1;min-width:0}
+.result-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.result-sub{font-size:12px;color:var(--text2);margin-bottom:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.result-meta{font-size:11px;color:var(--text3)}
+.result-tag{display:inline-block;background:#EEF3F8;color:var(--navy);font-size:10px;font-weight:500;padding:2px 7px;border-radius:10px;margin-left:4px}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:12px}
+.empty-icon{font-size:44px;opacity:0.3}
+.empty-text{font-size:14px;color:var(--text3);text-align:center;line-height:1.5}
+.highlight{background:#FFF3D6;color:var(--navy);border-radius:2px;font-weight:500}
+.navbar{height:64px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 8px;flex-shrink:0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;min-width:50px}
+.nav-item svg{stroke:var(--text3);fill:none;width:22px;height:22px}
+.nav-item span{font-size:11px;color:var(--text3)}
+.nav-plus{width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(29,63,94,0.3);cursor:pointer;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span></span><span>●●●</span></div>
+  <div class="search-header">
+    <div class="search-top">
+      <span class="back-btn">‹</span>
+      <span class="search-title">חיפוש</span>
+    </div>
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" type="text" placeholder="חפש בשכונה..." value="בייביסיטר">
+    </div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-chip active">הכל</div>
+    <div class="filter-chip">פוסטים</div>
+    <div class="filter-chip">מכירות</div>
+    <div class="filter-chip">שירותים</div>
+    <div class="filter-chip">אנשים</div>
+    <div class="filter-chip">קבוצות</div>
+  </div>
+  <div class="scroll">
+    <div class="section-label">3 תוצאות</div>
+    <div class="result-card">
+      <div class="result-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="result-body">
+        <div class="result-title">מחפשת <span class="highlight">בייביסיטר</span> לסופי שבוע</div>
+        <div class="result-sub">ילד בן 3, כל סוף שבוע שעתיים בערב. מישהי פנויה?</div>
+        <div class="result-meta">דנה לוי · לפני 2 שעות <span class="result-tag">פוסט</span></div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="result-body">
+        <div class="result-title">שירה כהן</div>
+        <div class="result-sub"><span class="highlight">בייביסיטר</span> מוסמכת · עד גיל 10 · זמינה ערב ושישי</div>
+        <div class="result-meta">רמת אביב ג׳ <span class="result-tag">שירות</span></div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="result-body">
+        <div class="result-title">הורים ל-0–3 שנה</div>
+        <div class="result-sub">קבוצה עם 48 חברים — הרבה המלצות <span class="highlight">בייביסיטר</span> בתוכה</div>
+        <div class="result-meta">קבוצה <span class="result-tag">קבוצה</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>פיד</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>לוח מכירות</span></div>
+    <div class="nav-plus"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>קבוצות</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>פרופיל</span></div>
+  </div>
+</div>
+</body>
+</html>

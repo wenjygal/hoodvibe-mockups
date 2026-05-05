@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — בחר שכונה</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+.phone{width:375px;min-height:780px;background:var(--surface);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.status-bar span{color:#fff;font-size:12px;font-weight:500}
+.header{background:var(--navy);padding:16px 20px 18px;flex-shrink:0}
+.logo-row{direction:ltr;display:flex;align-items:baseline;margin-bottom:16px}
+.logo-main{color:#fff;font-size:20px;font-weight:700;letter-spacing:-0.3px}
+.logo-dot{color:var(--orange);font-size:20px;font-weight:700;margin:0 1px}
+.logo-social{color:rgba(255,255,255,0.75);font-size:14px}
+.progress-row{display:flex;align-items:center;gap:8px}
+.progress-bar{flex:1;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:#fff;border-radius:2px;width:66%}
+.progress-label{color:rgba(255,255,255,0.6);font-size:12px;white-space:nowrap}
+.body{flex:1;padding:24px 20px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
+.body::-webkit-scrollbar{display:none}
+.step-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-sub{font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:20px}
+.trust-note{background:#EEF3F8;border-radius:10px;padding:10px 14px;font-size:12px;color:var(--navy);margin-bottom:20px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.search-bar{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:14px}
+.search-bar svg{stroke:var(--text3);flex-shrink:0}
+.search-input{background:none;border:none;font-size:15px;color:var(--text);outline:none;flex:1}
+.search-input::placeholder{color:var(--text3)}
+.city-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px}
+.hood-list{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.hood-item{background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color 0.15s}
+.hood-item.selected{border-color:var(--navy);background:#EEF3F8}
+.hood-item-left{display:flex;flex-direction:column;gap:2px}
+.hood-name{font-size:15px;color:var(--text);font-weight:400}
+.hood-name.selected-text{font-weight:600;color:var(--navy)}
+.hood-city{font-size:12px;color:var(--text3)}
+.hood-members{font-size:12px;color:var(--text3)}
+.check-circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.check-circle.checked{background:var(--navy);border-color:var(--navy);color:#fff;font-size:13px;font-weight:700}
+.not-found{font-size:13px;color:var(--text3);text-align:center;padding:12px 0}
+.not-found a{color:var(--navy);text-decoration:none;font-weight:500}
+.cta-btn{width:100%;padding:15px;background:var(--navy);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;margin-top:auto}
+.cta-btn:disabled{opacity:0.35;cursor:default}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span></span><span>●●●</span></div>
+  <div class="header">
+    <div class="logo-row"><span class="logo-main">HoodVibe</span><span class="logo-dot">●</span><span class="logo-social">Social</span></div>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-label">שלב 2 מתוך 3</span>
+    </div>
+  </div>
+  <div class="body">
+    <div class="step-title">איפה אתה גר?</div>
+    <div class="step-sub">בחר את השכונה שלך — תראה רק תוכן מאנשים שגרים ליד.</div>
+    <div class="trust-note">
+      <span>🔒</span>
+      <span>אנחנו סומכים עליך. לא נבקש GPS. ההצהרה עצמך מספיקה.</span>
+    </div>
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" type="text" placeholder="חפש שכונה או עיר...">
+    </div>
+    <div class="city-label">תל אביב</div>
+    <div class="hood-list">
+      <div class="hood-item selected">
+        <div class="hood-item-left">
+          <div class="hood-name selected-text">רמת אביב ג׳</div>
+          <div class="hood-city">תל אביב</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="hood-members">214 תושבים</span>
+          <div class="check-circle checked">✓</div>
+        </div>
+      </div>
+      <div class="hood-item">
+        <div class="hood-item-left">
+          <div class="hood-name">רמת אביב</div>
+          <div class="hood-city">תל אביב</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="hood-members">387 תושבים</span>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+      <div class="hood-item">
+        <div class="hood-item-left">
+          <div class="hood-name">נווה אביבים</div>
+          <div class="hood-city">תל אביב</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="hood-members">142 תושבים</span>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+    <div class="city-label">רמת גן</div>
+    <div class="hood-list">
+      <div class="hood-item">
+        <div class="hood-item-left">
+          <div class="hood-name">קריית קרול</div>
+          <div class="hood-city">רמת גן</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="hood-members">98 תושבים</span>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+    <div class="not-found">לא מצאת את השכונה שלך? <a href="#">בקש להוסיף אותה</a></div>
+    <button class="cta-btn">המשך</button>
+  </div>
+</div>
+</body>
+</html>

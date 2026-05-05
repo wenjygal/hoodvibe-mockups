@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — הגדרות</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+.phone{width:375px;min-height:780px;background:var(--bg);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.status-bar span{color:#fff;font-size:12px;font-weight:500}
+.header{background:var(--navy);padding:12px 16px 16px;flex-shrink:0}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.back-btn{color:rgba(255,255,255,0.8);font-size:22px;cursor:pointer}
+.header-title{color:#fff;font-size:17px;font-weight:600}
+.profile-mini{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.1);border-radius:14px;padding:10px 12px;cursor:pointer}
+.avatar-circle{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:600;flex-shrink:0}
+.profile-text{flex:1}
+.profile-name{color:#fff;font-size:15px;font-weight:500}
+.profile-sub{color:rgba(255,255,255,0.6);font-size:12px}
+.edit-arrow{color:rgba(255,255,255,0.5);font-size:18px}
+.scroll{flex:1;overflow-y:auto;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.5px;padding:16px 16px 6px}
+.settings-group{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0}
+.settings-row{display:flex;align-items:center;padding:14px 16px;gap:14px;border-bottom:1px solid var(--border);cursor:pointer}
+.settings-row:last-child{border-bottom:none}
+.row-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.row-icon.blue{background:#EEF3F8}
+.row-icon.green{background:#E1F5EE}
+.row-icon.orange{background:#FFF0E8}
+.row-icon.red{background:#FEE8E8}
+.row-icon.gray{background:var(--surface2)}
+.row-body{flex:1}
+.row-title{font-size:14px;color:var(--text);font-weight:400}
+.row-sub{font-size:12px;color:var(--text3);margin-top:1px}
+.row-right{display:flex;align-items:center;gap:8px}
+.row-arrow{color:var(--text3);font-size:16px}
+.row-value{font-size:13px;color:var(--text3)}
+.toggle{width:44px;height:26px;background:#ddd;border-radius:13px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0}
+.toggle.on{background:var(--navy)}
+.toggle::after{content:'';position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle.on::after{transform:translateX(-18px)}
+.version-note{text-align:center;padding:20px;font-size:12px;color:var(--text3)}
+.danger-row{color:#C0392B}
+.navbar{height:64px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 8px;flex-shrink:0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;min-width:50px}
+.nav-item svg{stroke:var(--text3);fill:none;width:22px;height:22px}
+.nav-item span{font-size:11px;color:var(--text3)}
+.nav-plus{width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(29,63,94,0.3);cursor:pointer;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span></span><span>●●●</span></div>
+  <div class="header">
+    <div class="header-top">
+      <span class="back-btn">‹</span>
+      <span class="header-title">הגדרות</span>
+    </div>
+    <div class="profile-mini">
+      <div class="avatar-circle">ד</div>
+      <div class="profile-text">
+        <div class="profile-name">דנה לוי</div>
+        <div class="profile-sub">רמת אביב ג׳ · עריכת פרופיל</div>
+      </div>
+      <span class="edit-arrow">›</span>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="section-label">שכונה</div>
+    <div class="settings-group">
+      <div class="settings-row">
+        <div class="row-icon blue">📍</div>
+        <div class="row-body">
+          <div class="row-title">השכונה שלי</div>
+          <div class="row-sub">רמת אביב ג׳, תל אביב</div>
+        </div>
+        <div class="row-right"><span class="row-arrow">›</span></div>
+      </div>
+    </div>
+    <div class="section-label">התראות</div>
+    <div class="settings-group">
+      <div class="settings-row">
+        <div class="row-icon blue">🔔</div>
+        <div class="row-body">
+          <div class="row-title">התראות פוסטים חדשים</div>
+        </div>
+        <div class="toggle on"></div>
+      </div>
+      <div class="settings-row">
+        <div class="row-icon blue">💬</div>
+        <div class="row-body">
+          <div class="row-title">התראות קבוצות</div>
+        </div>
+        <div class="toggle on"></div>
+      </div>
+      <div class="settings-row">
+        <div class="row-icon gray">🛍️</div>
+        <div class="row-body">
+          <div class="row-title">התראות לוח מכירות</div>
+        </div>
+        <div class="toggle"></div>
+      </div>
+    </div>
+    <div class="section-label">פרטיות</div>
+    <div class="settings-group">
+      <div class="settings-row">
+        <div class="row-icon green">👁️</div>
+        <div class="row-body">
+          <div class="row-title">מי רואה את הפרופיל שלי</div>
+          <div class="row-sub">תושבי השכונה בלבד</div>
+        </div>
+        <div class="row-right"><span class="row-arrow">›</span></div>
+      </div>
+      <div class="settings-row">
+        <div class="row-icon green">📞</div>
+        <div class="row-body">
+          <div class="row-title">הסתרת מספר טלפון</div>
+          <div class="row-sub">WhatsApp יישלח דרך קישור אנונימי</div>
+        </div>
+        <div class="toggle"></div>
+      </div>
+    </div>
+    <div class="section-label">כללי</div>
+    <div class="settings-group">
+      <div class="settings-row">
+        <div class="row-icon orange">❓</div>
+        <div class="row-body">
+          <div class="row-title">עזרה ותמיכה</div>
+        </div>
+        <div class="row-right"><span class="row-arrow">›</span></div>
+      </div>
+      <div class="settings-row">
+        <div class="row-icon gray">📄</div>
+        <div class="row-body">
+          <div class="row-title">תנאי שימוש ופרטיות</div>
+        </div>
+        <div class="row-right"><span class="row-arrow">›</span></div>
+      </div>
+      <div class="settings-row danger-row">
+        <div class="row-icon red">🚪</div>
+        <div class="row-body">
+          <div class="row-title" style="color:#C0392B">התנתקות</div>
+        </div>
+      </div>
+    </div>
+    <div class="version-note">HoodVibe Social · גרסה 0.1.0 Beta</div>
+  </div>
+  <div class="navbar">
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>פיד</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>לוח מכירות</span></div>
+    <div class="nav-plus"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>קבוצות</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>פרופיל</span></div>
+  </div>
+</div>
+</body>
+</html>

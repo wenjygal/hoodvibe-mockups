@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — הגדרת פרופיל</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+.phone{width:375px;min-height:780px;background:var(--surface);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.status-bar span{color:#fff;font-size:12px;font-weight:500}
+.header{background:var(--navy);padding:16px 20px 18px;flex-shrink:0}
+.logo-row{direction:ltr;display:flex;align-items:baseline;margin-bottom:16px}
+.logo-main{color:#fff;font-size:20px;font-weight:700;letter-spacing:-0.3px}
+.logo-dot{color:var(--orange);font-size:20px;font-weight:700;margin:0 1px}
+.logo-social{color:rgba(255,255,255,0.75);font-size:14px}
+.progress-row{display:flex;align-items:center;gap:8px}
+.progress-bar{flex:1;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:#fff;border-radius:2px;width:100%}
+.progress-label{color:rgba(255,255,255,0.6);font-size:12px;white-space:nowrap}
+.body{flex:1;padding:24px 20px 28px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
+.body::-webkit-scrollbar{display:none}
+.step-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-sub{font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:24px}
+.avatar-upload{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.avatar-circle{width:72px;height:72px;border-radius:50%;background:#EEF3F8;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative}
+.avatar-placeholder{color:var(--text3);font-size:28px}
+.avatar-edit-badge{position:absolute;bottom:0;left:0;width:22px;height:22px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff}
+.avatar-hint{font-size:13px;color:var(--text2);line-height:1.5}
+.avatar-hint strong{color:var(--text);font-weight:500}
+.input-group{margin-bottom:16px}
+.input-label{font-size:13px;font-weight:500;color:var(--text2);margin-bottom:6px;display:flex;justify-content:space-between}
+.input-optional{font-size:12px;color:var(--text3);font-weight:400}
+.input-field{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);outline:none;background:var(--surface2)}
+.input-field:focus{border-color:var(--navy);background:#fff}
+.input-field::placeholder{color:var(--text3)}
+.interests-label{font-size:13px;font-weight:500;color:var(--text2);margin-bottom:8px}
+.interests-label span{font-size:12px;color:var(--text3);font-weight:400}
+.interests-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.interest-chip{padding:7px 14px;border-radius:20px;font-size:13px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer}
+.interest-chip.selected{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cta-btn{width:100%;padding:15px;background:var(--navy);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;margin-top:auto}
+.skip-btn{background:none;border:none;color:var(--text3);font-size:14px;cursor:pointer;text-align:center;padding:12px;width:100%}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span></span><span>●●●</span></div>
+  <div class="header">
+    <div class="logo-row"><span class="logo-main">HoodVibe</span><span class="logo-dot">●</span><span class="logo-social">Social</span></div>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-label">שלב 3 מתוך 3</span>
+    </div>
+  </div>
+  <div class="body">
+    <div class="step-title">ספר קצת על עצמך</div>
+    <div class="step-sub">שכנים שמכירים אחד את השני עוזרים יותר. זה לוקח דקה.</div>
+    <div class="avatar-upload">
+      <div class="avatar-circle">
+        <span class="avatar-placeholder">👤</span>
+        <div class="avatar-edit-badge">✏️</div>
+      </div>
+      <div class="avatar-hint">
+        <strong>הוסף תמונה</strong><br>
+        לא חובה, אבל שכנים סומכים יותר על פרצופים מוכרים
+      </div>
+    </div>
+    <div class="input-group">
+      <label class="input-label">שם פרטי <span class="input-optional">שם מוצג לשכנים</span></label>
+      <input class="input-field" type="text" placeholder="דנה" value="דנה">
+    </div>
+    <div class="input-group">
+      <label class="input-label">שם משפחה <span class="input-optional">אופציונלי</span></label>
+      <input class="input-field" type="text" placeholder="לוי">
+    </div>
+    <div class="input-group">
+      <label class="input-label">על עצמי <span class="input-optional">אופציונלי</span></label>
+      <input class="input-field" type="text" placeholder="אמא לשניים, אוהבת כלבים ואפייה 🐕">
+    </div>
+    <div class="interests-label">תחומי עניין <span>(עוזר לך למצוא פוסטים רלוונטיים)</span></div>
+    <div class="interests-grid">
+      <div class="interest-chip selected">כלבים 🐕</div>
+      <div class="interest-chip selected">ילדים 👶</div>
+      <div class="interest-chip">אוכל 🍕</div>
+      <div class="interest-chip">ספורט 🏃</div>
+      <div class="interest-chip">מוזיקה 🎵</div>
+      <div class="interest-chip">ועד בית 🏠</div>
+      <div class="interest-chip">חינוך 📚</div>
+      <div class="interest-chip">פוליטיקה מקומית 🗳️</div>
+    </div>
+    <button class="cta-btn">אני בפנים! →</button>
+    <button class="skip-btn">דלג בינתיים</button>
+  </div>
+</div>
+</body>
+</html>
