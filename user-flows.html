@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoodVibe — User Flows</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#F0F2F5;--surface:#fff;--border:#e5e5e5;--text:#1a1a1a;--text2:#555;--text3:#999}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;direction:rtl}
+
+.topbar{background:var(--navy);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{direction:ltr;display:flex;align-items:baseline;gap:0}
+.logo-main{color:#fff;font-size:20px;font-weight:700;letter-spacing:-0.5px}
+.logo-dot{color:var(--orange);font-size:20px;font-weight:700;margin:0 2px}
+.logo-social{color:rgba(255,255,255,0.75);font-size:14px}
+.topbar-back{color:rgba(255,255,255,0.6);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.15s}
+.topbar-back:hover{color:#fff}
+
+.hero{background:var(--navy-dark);padding:28px 32px 32px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.hero-title{color:#fff;font-size:24px;font-weight:700;margin-bottom:6px}
+.hero-sub{color:rgba(255,255,255,0.55);font-size:14px;line-height:1.6;max-width:520px}
+.hero-pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pill{padding:4px 12px;border-radius:20px;font-size:12px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.65)}
+.pill span{color:var(--orange);font-weight:600}
+
+.content{padding:28px 32px 60px;max-width:1200px;margin:0 auto}
+
+/* TABS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.tab{padding:8px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text2);transition:all 0.15s;font-family:inherit}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab:hover:not(.active){border-color:var(--navy);color:var(--navy)}
+
+.flow-area{display:none}
+.flow-area.active{display:block}
+
+/* LEGEND */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;padding:12px 16px;background:var(--surface);border-radius:10px;border:1px solid var(--border)}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
+.legend-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+
+/* NODE COLORS */
+.n-screen  {background:#EEF3F8;border:2px solid var(--navy);color:var(--navy-dark)}
+.n-action  {background:#FFF4EC;border:2px solid var(--orange);color:#7a3a10}
+.n-decision{background:#E9F5EA;border:2px dashed #34A853;color:#1a5c2a}
+.n-system  {background:#F0EBF8;border:2px solid #7B5EA7;color:#3d2063}
+.n-whatsapp{background:#E8F5E9;border:2px solid #25D366;color:#1a5c2a}
+.n-endpoint{background:#FEE;border:2px solid #E53935;color:#7f0000}
+.n-p2      {background:#F5F5F5;border:2px dashed #bbb;color:#888}
+
+/* FLOW GRID */
+.flow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+
+.flow-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.flow-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:var(--navy);border-radius:0 14px 14px 0}
+.flow-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+.step{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{display:flex;flex-direction:column;gap:3px}
+.step-text{font-size:12.5px;color:var(--text);line-height:1.4}
+.step-sub{font-size:11px;color:var(--text3)}
+.step-connector{width:2px;height:12px;background:var(--border);margin-right: 10px;margin-bottom:2px}
+
+.tag{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;display:inline-block}
+.tag-wa{background:#E8F5E9;color:#1a5c2a}
+.tag-sys{background:#F0EBF8;color:#3d2063}
+.tag-edge{background:#FFF4EC;color:#7a3a10}
+.tag-p2{background:#F5F5F5;color:#888;border:1px solid #ddd}
+
+.edge-box{margin-top:14px;padding:10px 12px;background:#FFF4EC;border-radius:8px;border:1px solid #F5A623;font-size:11.5px;color:#7a3a10;line-height:1.6}
+.edge-box strong{display:block;margin-bottom:4px;font-size:12px}
+
+/* DETAIL VIEW */
+.detail-section{margin-bottom:32px}
+.detail-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.detail-title span{font-size:12px;font-weight:400;color:var(--text3)}
+
+.flow-row{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:6px}
+.node{min-width:130px;max-width:160px;padding:9px 12px;border-radius:10px;font-size:12.5px;text-align:center;line-height:1.4}
+.arr-r{width:28px;height:2px;background:#ccc;position:relative;flex-shrink:0}
+.arr-r::after{content:'▶';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:#ccc;font-size:9px}
+.arr-d{width:2px;height:22px;background:#ccc;margin:0 auto;position:relative}
+.arr-d::after{content:'▼';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);color:#ccc;font-size:9px}
+.arr-label{font-size:11px;color:#999;margin:0 5px;white-space:nowrap}
+
+.branch-wrap{display:flex;gap:16px;align-items:flex-start;margin:4px 0}
+.branch-col{display:flex;flex-direction:column;align-items:center}
+
+.status-bar-bottom{background:var(--navy-dark);padding:14px 32px;display:flex;align-items:center;gap:24px;margin-top:40px}
+.status-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.55)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.status-dot.green{background:#4CAF50}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">
+    <span class="logo-main">HoodVibe</span><span class="logo-dot">●</span><span class="logo-social">Social</span>
+  </div>
+  <a class="topbar-back" href="index.html">← חזרה למוקאפים</a>
+</div>
+
+<div class="hero">
+  <div class="hero-title">User Flows — פלואים של המשתמש</div>
+  <div class="hero-sub">מיפוי כל מסלולי המשתמש במוצר — מהרשמה ועד יצירת קשר. כולל edge cases ומצבי שגיאה.</div>
+  <div class="hero-pills">
+    <div class="pill"><span>8</span> פלואים ראשיים</div>
+    <div class="pill"><span>WhatsApp</span> Only — No Internal Chat</div>
+    <div class="pill"><span>Magic Link</span> Auth</div>
+    <div class="pill"><span>RTL</span> Hebrew</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot n-screen" style="border-width:2px"></div>מסך</div>
+    <div class="legend-item"><div class="legend-dot n-action" style="border-width:2px"></div>פעולת משתמש</div>
+    <div class="legend-item"><div class="legend-dot n-system" style="border-width:2px"></div>פעולת מערכת</div>
+    <div class="legend-item"><div class="legend-dot n-whatsapp" style="border-width:2px"></div>WhatsApp</div>
+    <div class="legend-item"><div class="legend-dot n-decision" style="border-width:2px;border-style:dashed"></div>התפצלות / edge</div>
+    <div class="legend-item"><div class="legend-dot n-p2" style="border-width:2px;border-style:dashed"></div>P2 — עתידי</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="show('overview', this)">📋 סקירה כללית</button>
+    <button class="tab" onclick="show('onboarding', this)">🚀 הרשמה</button>
+    <button class="tab" onclick="show('feed', this)">📰 פיד ופוסטים</button>
+    <button class="tab" onclick="show('contact', this)">💬 יצירת קשר</button>
+    <button class="tab" onclick="show('marketplace', this)">🛍️ לוח מכירות</button>
+    <button class="tab" onclick="show('groups', this)">👥 קבוצות</button>
+    <button class="tab" onclick="show('profile', this)">🔍 פרופיל וחיפוש</button>
+    <button class="tab" onclick="show('moderation', this)">⚠️ דיווח</button>
+  </div>
+
+  <!-- ===== OVERVIEW ===== -->
+  <div class="flow-area active" id="overview">
+    <div class="flow-grid">
+
+      <div class="flow-card">
+        <h3>🚀 הרשמה — Magic Link</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">מגיע לדף הרשמה / כניסה</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">מזין שם + כתובת מייל</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">קבלת Magic Link במייל</div><div class="step-sub"><span class="tag tag-sys">מייל אוטומטי</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">לוחץ על הלינק → בחירת שכונה</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-text">הגדרת פרופיל + צ'קבוקסי שירות</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-text">כניסה לפיד שכונתי</div></div></div>
+        <div class="edge-box"><strong>Edge cases:</strong>לינק פג תוקף → שלח שוב<br>שכונה לא ברשימה → בקש הוספה<br>משתמש קיים → כניסה ישירה</div>
+      </div>
+
+      <div class="flow-card">
+        <h3>📝 פרסום פוסט</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">לחיצה על + בניווט</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">בחירת קטגוריה (חובה)</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">כותרת + גוף טקסט</div><div class="step-sub">max 80 / 1000 תווים</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">תמונות ו/או לינק (אופציונלי)</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-text">פוסט עולה לפיד השכונה</div><div class="step-sub"><span class="tag tag-sys">מסנן אוטומטי רץ</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-text">בעל הפוסט סוגר → נעלם מפיד</div><div class="step-sub"><span class="tag tag-edge">edge: סגירה</span></div></div></div>
+      </div>
+
+      <div class="flow-card">
+        <h3>💬 יצירת קשר — WhatsApp</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">שכן רואה פוסט בפיד</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">לוחץ "מעניין אותי"</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">נפתח WhatsApp עם טקסט מוכן</div><div class="step-sub"><span class="tag tag-wa">wa.me + הקשר פוסט</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">תיאום מחוץ לאפליקציה</div></div></div>
+        <div class="edge-box"><strong>Edge case:</strong>משתמש בלי טלפון → "לא הוסיף טלפון"</div>
+      </div>
+
+      <div class="flow-card">
+        <h3>🛍️ לוח מכירות</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">פתיחת לשונית מכירות</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">סינון לפי קטגוריה (אופציונלי)</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">לחיצה על כרטיס פריט</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">קשר עם מוכר</div><div class="step-sub"><span class="tag tag-wa">WhatsApp</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-text">מוכר מסמן "נמכר"</div><div class="step-sub"><span class="tag tag-edge">edge: סגירת מכירה</span></div></div></div>
+        <div class="edge-box"><strong>Empty state:</strong>"יש לך משהו למכור?"</div>
+      </div>
+
+      <div class="flow-card">
+        <h3>👥 קבוצות שכונתיות</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">פתיחת לשונית קבוצות</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">הצטרפות → בקשה → מנהל מאשר</div><div class="step-sub"><span class="tag tag-edge">אפשרות A</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">יצירת קבוצה חדשה</div><div class="step-sub"><span class="tag tag-edge">אפשרות B</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">פרסום בפיד הקבוצתי</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-text">קשר בין חברים → WhatsApp</div><div class="step-sub"><span class="tag tag-wa">אין צ'אט קבוצתי ב-MVP</span></div></div></div>
+      </div>
+
+      <div class="flow-card">
+        <h3>🔍 גילוי נותני שירות</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">חיפוש "בייביסיטר" / "dog walker"</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">תוצאות לפי צ'קבוקס פרופיל + פוסטים</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">פתיחת פרופיל נותן שירות</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">יצירת קשר</div><div class="step-sub"><span class="tag tag-wa">WhatsApp</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-text">המלצות ודירוג בפרופיל</div><div class="step-sub"><span class="tag tag-p2">P2 — עתידי</span></div></div></div>
+      </div>
+
+      <div class="flow-card">
+        <h3>⚠️ דיווח ומודרציה</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">לחיצה "דווח" על פוסט / פרופיל</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">בחירת סיבה + טקסט חופשי</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">מייל לצוות עם פרטים מלאים</div><div class="step-sub"><span class="tag tag-sys">אוטומטי</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-text">מסנן אוטומטי + מודרטור אנושי</div></div></div>
+      </div>
+
+      <div class="flow-card">
+        <h3>🔁 כניסה חוזרת</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-text">פתיחת האפליקציה</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-text">סשן פעיל → פיד ישירות</div><div class="step-sub"><span class="tag tag-edge">נפוץ</span></div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-text">סשן פג → Magic Link חדש</div><div class="step-sub"><span class="tag tag-edge">edge</span></div></div></div>
+        <div class="edge-box"><strong>UX note:</strong>לא מבקשים סיסמה בשום מצב</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== ONBOARDING ===== -->
+  <div class="flow-area" id="onboarding">
+    <div class="detail-section">
+      <div class="detail-title">🚀 פלואו הרשמה — Magic Link <span>שלבים 1→6</span></div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:700px">
+
+        <div class="flow-row">
+          <div class="node n-screen">דף כניסה / הרשמה</div>
+          <div class="arr-r"></div>
+          <div class="node n-action">מלא שם + מייל</div>
+          <div class="arr-r"></div>
+          <div class="node n-system">שלח Magic Link</div>
+        </div>
+        <div style="margin-right:326px"><div class="arr-d"></div></div>
+
+        <div class="flow-row" style="margin-right:290px">
+          <div class="node n-action">לחיצה על הלינק במייל</div>
+        </div>
+        <div style="margin-right:362px"><div class="arr-d"></div></div>
+
+        <div class="flow-row" style="margin-right:290px">
+          <div class="node n-screen">בחירת שכונה ועיר</div>
+          <div class="arr-r"></div>
+          <div class="node n-decision" style="font-size:12px">GPS זמין?</div>
+        </div>
+        <div style="margin-right:362px"><div class="arr-d"></div></div>
+
+        <div class="flow-row" style="margin-right:290px;align-items:flex-start;gap:20px">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="arr-label">כן ↓</div>
+            <div class="node n-system" style="font-size:12px;min-width:130px">הצעת שכונה לאישור</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="arr-label">לא ↓</div>
+            <div class="node n-action" style="font-size:12px;min-width:130px">בחירה ידנית מרשימה</div>
+          </div>
+        </div>
+        <div style="margin-right:362px"><div class="arr-d"></div></div>
+
+        <div class="flow-row" style="margin-right:290px">
+          <div class="node n-screen">הגדרת פרופיל</div>
+          <div class="arr-r"></div>
+          <div class="node n-action" style="font-size:12px">שם, תמונה, צ'קבוקסים</div>
+        </div>
+        <div style="margin-right:362px"><div class="arr-d"></div></div>
+
+        <div class="flow-row" style="margin-right:290px">
+          <div class="node n-screen">פיד שכונתי (ריק)</div>
+          <div class="arr-r"></div>
+          <div class="node n-system" style="font-size:12px">Empty state → "פרסם ראשון"</div>
+        </div>
+
+        <div class="edge-box" style="max-width:560px;margin-top:16px">
+          <strong>Edge cases:</strong>
+          לינק פג תוקף (15 דק') → הודעת שגיאה + "שלח שוב"<br>
+          שכונה לא ברשימה → "בקש הוספת שכונה" (נשלח לאדמין)<br>
+          משתמש קיים שניסה להירשם שוב → Magic Link מחבר לחשבון הקיים
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-title">🔗 מסכים מקושרים</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="magic-link.html" target="_blank" style="padding:8px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:13px;text-decoration:none">✉️ Magic Link — שלב 1 ↗</a>
+        <a href="magic-link-sent.html" target="_blank" style="padding:8px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:13px;text-decoration:none">📬 בדוק מייל — שלב 1b ↗</a>
+        <a href="neighborhood-select.html" target="_blank" style="padding:8px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:13px;text-decoration:none">📍 בחירת שכונה — שלב 2 ↗</a>
+        <a href="onboarding-profile.html" target="_blank" style="padding:8px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:13px;text-decoration:none">🙋 פרופיל — שלב 3 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FEED ===== -->
+  <div class="flow-area" id="feed">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:220px">
+        <div class="detail-title">📰 צפייה בפיד</div>
+        <div class="node n-screen" style="margin-bottom:6px">פיד שכונתי</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">גלילה / פילטר קטגוריה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">פיד ריק?</div>
+        <div style="display:flex;gap:16px;margin-bottom:6px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">כן</div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:110px">Empty state<br>"תהיה הראשון!"</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">לא</div>
+            <div class="node n-action" style="font-size:11px;min-width:110px">לחיצה על כרטיס</div>
+            <div class="arr-d"></div>
+            <div class="node n-screen" style="font-size:11px;min-width:110px">פוסט מלא</div>
+          </div>
+        </div>
+        <a href="feed.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ פיד ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:220px">
+        <div class="detail-title">✍️ יצירת פוסט</div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה על +</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">טופס פרסום</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">קטגוריה (חובה) + כותרת + גוף</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">תמונות / לינק (אופציונלי)</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">תצוגה מקדימה → אישור?</div>
+        <div style="display:flex;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">בטל</div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:90px">חזרה לפיד</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">פרסם</div>
+            <div class="node n-system" style="font-size:11px;min-width:90px">פוסט עולה לפיד</div>
+            <div class="arr-d"></div>
+            <div class="node n-system" style="font-size:11px;min-width:90px">מסנן אוטומטי</div>
+          </div>
+        </div>
+        <a href="create-post.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ יצירת פוסט ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:220px">
+        <div class="detail-title">🔒 סגירת פוסט</div>
+        <div class="node n-screen" style="margin-bottom:6px;font-size:12px">פוסט מלא (בעל הפוסט)</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">לחיצה "סגור פוסט"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">אישור?</div>
+        <div style="display:flex;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">לא</div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:90px">נשאר פתוח</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">כן</div>
+            <div class="node n-system" style="font-size:11px;min-width:90px">סטטוס: נסגר<br>נעלם מפיד</div>
+          </div>
+        </div>
+        <div class="edge-box" style="margin-top:16px">
+          <strong>Edge cases:</strong>
+          תמונה &gt;5MB → שגיאה inline<br>
+          פוסט שנסגר — שכן שמנסה לפתוח → "הפוסט נסגר"<br>
+          אין חיבור → Toast "לא הצלחנו לפרסם"
+        </div>
+        <a href="post.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ פוסט ↗</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== CONTACT ===== -->
+  <div class="flow-area" id="contact">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">💬 מפוסט בפיד</div>
+        <div class="node n-screen" style="margin-bottom:6px">פוסט מלא</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "מעניין אותי"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">טלפון קיים?</div>
+        <div style="display:flex;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">כן</div>
+            <div class="node n-whatsapp" style="font-size:11px;min-width:110px">פתיחת WhatsApp<br>wa.me + טקסט מוכן</div>
+            <div class="arr-d"></div>
+            <div class="node n-system" style="font-size:11px;min-width:110px">כולל: שם פוסט + שכונה</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">לא</div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:110px">"המשתמש לא הוסיף טלפון"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">👤 מפרופיל משתמש</div>
+        <div class="node n-screen" style="margin-bottom:6px">פרופיל שכן</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "צור קשר"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-whatsapp">WhatsApp<br>טקסט גנרי</div>
+        <a href="profile.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ פרופיל ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">💬 תגובה לפוסט</div>
+        <div class="node n-screen" style="margin-bottom:6px">פוסט מלא</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">כתיבת תגובה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px">תגובה מופיעה מתחת לפוסט</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system">התראה לבעל הפוסט</div>
+        <div class="edge-box" style="margin-top:12px"><strong>MVP note:</strong>אין תגובה-לתגובה<br>Reactions על הפוסט עצמו בלבד</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== MARKETPLACE ===== -->
+  <div class="flow-area" id="marketplace">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">🛍️ גלישה וקשר עם מוכר</div>
+        <div class="node n-screen" style="margin-bottom:6px">לוח מכירות</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">סינון קטגוריה (אופציונלי)</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה על כרטיס פריט</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">דף פריט מלא</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-whatsapp">קשר עם מוכר<br>WhatsApp</div>
+        <a href="marketplace.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ מכירות ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">➕ פרסום פריט למכירה</div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה + פריט חדש</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">טופס פרסום מכירה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">תמונה + מחיר + תיאור + קטגוריה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system">פריט מופיע בלוח</div>
+        <div class="edge-box" style="margin-top:12px"><strong>Edge:</strong>מחיר 0 → מוצג "חינם"</div>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">✅ סגירת מכירה</div>
+        <div class="node n-screen" style="margin-bottom:6px;font-size:12px">דף פריט (בעל הפריט)</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "סמן כנמכר"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="font-size:12px">סטטוס: נמכר<br>מוצג כ-badge "נמכר"</div>
+        <div class="edge-box" style="margin-top:12px">
+          <strong>Empty state:</strong>"עדיין אין פריטים — יש לך משהו למכור?"<br>
+          <strong>UX note:</strong>פריט נמכר נשאר גלוי אך לא ניתן ליצירת קשר
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== GROUPS ===== -->
+  <div class="flow-area" id="groups">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">🚪 הצטרפות לקבוצה</div>
+        <div class="node n-screen" style="margin-bottom:6px">רשימת קבוצות</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה על קבוצה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "הצטרף"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px;font-size:12px">בקשה נשלחת למנהל</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">מנהל מאשר?</div>
+        <div style="display:flex;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">כן</div>
+            <div class="node n-screen" style="font-size:11px;min-width:100px">פיד קבוצתי</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">לא / ממתין</div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:100px">סטטוס: "ממתין לאישור"</div>
+          </div>
+        </div>
+        <a href="groups.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ קבוצות ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">➕ יצירת קבוצה חדשה</div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה + קבוצה חדשה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">טופס יצירה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">שם + תיאור + נושא</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px;font-size:12px">יוצר = מנהל קבוצה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">פיד קבוצה ריק</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action">פרסום פוסט ראשון</div>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">📝 פעילות בקבוצה</div>
+        <div class="node n-screen" style="margin-bottom:6px">פיד קבוצתי</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">פרסום / תגובה / Reaction</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">רוצה לדבר עם חבר?</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">לחיצה על פרופיל החבר</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-whatsapp">WhatsApp</div>
+        <div class="edge-box" style="margin-top:12px"><strong>MVP note:</strong>אין צ'אט קבוצתי פנימי<br>כל תקשורת ישירה דרך WhatsApp</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== PROFILE & SEARCH ===== -->
+  <div class="flow-area" id="profile">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">👤 עריכת פרופיל</div>
+        <div class="node n-screen" style="margin-bottom:6px">פרופיל אישי</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "ערוך"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">שינוי תמונה / שם / שכונה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">עדכון צ'קבוקסי שירות</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system">שמירה → פרופיל מעודכן</div>
+        <div class="edge-box" style="margin-top:12px"><strong>Edge:</strong>שינוי שכונה → פיד מתרענן לשכונה החדשה</div>
+        <a href="profile.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ פרופיל ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">🔍 חיפוש כללי</div>
+        <div class="node n-screen" style="margin-bottom:6px">מסך חיפוש</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">הקלדת מונח</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px;font-size:12px">תוצאות: פוסטים, משתמשים, עסקים</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה על תוצאה</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen">פוסט / פרופיל / עסק</div>
+        <div class="edge-box" style="margin-top:12px"><strong>Empty state:</strong>"לא מצאנו תוצאות — נסה מילה אחרת"</div>
+        <a href="search.html" target="_blank" style="display:inline-block;margin-top:12px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font-size:12px;text-decoration:none">פתח מוקאפ חיפוש ↗</a>
+      </div>
+
+      <div class="detail-section" style="flex:1;min-width:200px">
+        <div class="detail-title">🤝 גילוי נותני שירות</div>
+        <div class="node n-screen" style="margin-bottom:6px">חיפוש</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">"בייביסיטר" / "dog walker"</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px;font-size:12px">תוצאות לפי צ'קבוקס פרופיל + פוסטים</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px">פרופיל נותן שירות</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-whatsapp" style="margin-bottom:6px">יצירת קשר → WhatsApp</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-p2" style="font-size:12px">המלצות ודירוג בפרופיל<br><em>P2 — עתידי</em></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== MODERATION ===== -->
+  <div class="flow-area" id="moderation">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+      <div class="detail-section" style="flex:1;min-width:220px;max-width:340px">
+        <div class="detail-title">⚠️ דיווח על פוסט / משתמש</div>
+        <div class="node n-action" style="margin-bottom:6px">לחיצה "דווח" בתפריט</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-screen" style="margin-bottom:6px;font-size:12px">טופס דיווח</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-action" style="margin-bottom:6px;font-size:12px">בחירת סיבה + טקסט חופשי</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-system" style="margin-bottom:6px;font-size:12px">מייל לצוות: מי דיווח, על מי, תוכן</div>
+        <div class="arr-d" style="margin-bottom:6px"></div>
+        <div class="node n-decision" style="margin-bottom:6px;font-size:12px">מסנן אוטומטי עבר?</div>
+        <div style="display:flex;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">כן</div>
+            <div class="node n-system" style="font-size:11px;min-width:110px">הסרה אוטומטית</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="arr-label">לא</div>
+            <div class="node n-system" style="font-size:11px;min-width:110px">מודרטור אנושי בוחן</div>
+            <div class="arr-d"></div>
+            <div class="node n-endpoint" style="font-size:11px;min-width:110px">הסרה / השארה</div>
+          </div>
+        </div>
+        <div class="edge-box" style="margin-top:16px">
+          <strong>MVP note:</strong>
+          מודרציה = הצוות בלבד<br>
+          לא סקיילבל לטווח ארוך — מספיק ל-MVP<br>
+          Terms & Conditions כוללים הסרת אחריות
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="status-bar-bottom">
+  <div class="status-item"><div class="status-dot green"></div>שלב 1 — UX & מוקאפים: בתהליך</div>
+  <div class="status-item"><div class="status-dot"></div>שלב 2 — פיתוח ב-Google AI Studio: הבא</div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.flow-area').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
