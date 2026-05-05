@@ -33,7 +33,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
 
-/* CARD */
 .card{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.18s,transform 0.18s}
 .card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.12);transform:translateY(-3px)}
 .card-preview{height:160px;background:linear-gradient(160deg,#EEF3F8 0%,#dde6ee 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;text-decoration:none}
@@ -44,24 +43,10 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 .phone-mini-nav{height:18px;background:rgba(255,255,255,0.08);flex-shrink:0}
 .card-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--navy);color:#fff}
 .card-badge.new{background:var(--orange)}
-.card-body{padding:14px 16px 10px}
+.card-body{padding:14px 16px 16px;flex:1}
 .card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
 .card-desc{font-size:12px;color:var(--text2);line-height:1.5}
 .card-open{display:inline-block;margin-top:8px;font-size:12px;color:var(--navy);font-weight:500;text-decoration:none;cursor:pointer}
-
-/* FEEDBACK */
-.card-feedback{border-top:1px solid var(--border);padding:10px 16px 14px}
-.feedback-toggle{background:none;border:none;font-size:12px;color:var(--text3);cursor:pointer;padding:0;display:flex;align-items:center;gap:5px}
-.feedback-toggle:hover{color:var(--navy)}
-.feedback-form{display:none;margin-top:10px;flex-direction:column;gap:8px}
-.feedback-form.open{display:flex}
-.feedback-name{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;color:var(--text);background:var(--bg)}
-.feedback-name:focus{border-color:var(--navy)}
-.feedback-text{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;resize:none;outline:none;color:var(--text);background:var(--bg);min-height:70px}
-.feedback-text:focus{border-color:var(--navy)}
-.feedback-submit{padding:8px 14px;background:var(--navy);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;align-self:flex-start}
-.feedback-submit:hover{background:var(--navy-dark)}
-.feedback-sent{font-size:12px;color:#2E7D32;display:none;padding:4px 0}
 
 .status-bar-bottom{background:var(--navy-dark);padding:16px 40px;display:flex;align-items:center;gap:24px}
 .status-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.55)}
@@ -80,7 +65,7 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 
 <div class="hero">
   <div class="hero-title">מוקאפי מוצר — MVP</div>
-  <div class="hero-sub">כל מסכי האפליקציה לפני כניסה לפיתוח. RTL מלא, מותג Navy, Mobile First. לחץ על כל כרטיס לפתיחת המסך.</div>
+  <div class="hero-sub">כל מסכי האפליקציה לפני כניסה לפיתוח. RTL מלא, מותג Navy, Mobile First. לחץ על כל כרטיס לפתיחת המסך — כל מסך כולל פאנל הערות.</div>
   <div class="hero-pills">
     <div class="pill"><span>10</span> מסכים</div>
     <div class="pill"><span>Mobile</span> First</div>
@@ -131,15 +116,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">פוסטים עם קטגוריות, reactions, כפתור WhatsApp, כרטיס פוסט מלא</div>
           <a class="card-open" href="feed.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'פיד שכונתי')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -150,15 +126,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-title">פוסט מלא</div>
           <div class="card-desc">תצוגת פוסט מורחבת עם תגובות, reactions, כפתור WhatsApp ישיר</div>
           <a class="card-open" href="post.html" target="_blank">פתח מסך ↗</a>
-        </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'פוסט מלא')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
         </div>
       </div>
 
@@ -171,15 +138,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">בחירת קטגוריה, כותרת, גוף, העלאת תמונות, link preview</div>
           <a class="card-open" href="create-post.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'יצירת פוסט')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -191,15 +149,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">hero navy, צ'קבוקסי שכן, פוסטים פעילים, עריכת פרופיל</div>
           <a class="card-open" href="profile.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'פרופיל אישי')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -210,15 +159,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-title">לוח מכירות</div>
           <div class="card-desc">גריד 2 עמודות, קטגוריות, free/sold badges, כפתור יצירת קשר</div>
           <a class="card-open" href="marketplace.html" target="_blank">פתח מסך ↗</a>
-        </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'לוח מכירות')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
         </div>
       </div>
 
@@ -242,15 +182,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">tabs "הקבוצות שלי / גלה", badges הודעות חדשות, פעיל לאחרונה</div>
           <a class="card-open" href="groups.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'קבוצות')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -262,15 +193,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">חיפוש בשכונה, filter chips לפי סוג, highlight על מילת החיפוש</div>
           <a class="card-open" href="search.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'חיפוש')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -281,15 +203,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-title">הגדרות</div>
           <div class="card-desc">mini profile, toggles התראות ופרטיות, sections, התנתקות</div>
           <a class="card-open" href="settings.html" target="_blank">פתח מסך ↗</a>
-        </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'הגדרות')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
         </div>
       </div>
 
@@ -314,15 +227,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">הזנת אימייל, כניסה ללא סיסמה, אפשרות WhatsApp</div>
           <a class="card-open" href="magic-link.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'כניסה Magic Link')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -334,15 +238,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-title">בדוק את האימייל</div>
           <div class="card-desc">אישור שליחה, פתיחת אפליקציית מייל, שליחה מחדש, טיפ ספאם</div>
           <a class="card-open" href="magic-link-sent.html" target="_blank">פתח מסך ↗</a>
-        </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'בדוק את האימייל')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
         </div>
       </div>
 
@@ -356,15 +251,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">progress bar, trust note ללא GPS, חיפוש שכונה, בקש שכונה חדשה</div>
           <a class="card-open" href="neighborhood-select.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'בחירת שכונה')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -377,15 +263,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
           <div class="card-desc">תמונה, שם, על עצמי, תחומי עניין — כולם אופציונליים, "דלג"</div>
           <a class="card-open" href="onboarding-profile.html" target="_blank">פתח מסך ↗</a>
         </div>
-        <div class="card-feedback">
-          <button class="feedback-toggle" onclick="toggleFeedback(this)">💬 הוסף הערה</button>
-          <div class="feedback-form">
-            <input class="feedback-name" type="text" placeholder="השם שלך">
-            <textarea class="feedback-text" placeholder="מה את חושב על המסך הזה?"></textarea>
-            <button class="feedback-submit" onclick="submitFeedback(this, 'הגדרת פרופיל')">שלח הערה</button>
-            <div class="feedback-sent">✓ ההערה נשלחה, תודה!</div>
-          </div>
-        </div>
       </div>
 
     </div>
@@ -397,60 +274,6 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
   <div class="status-item"><div class="status-dot green"></div>שלב 1 — UX & מוקאפים: הושלם</div>
   <div class="status-item"><div class="status-dot"></div>שלב 2 — פיתוח ב-Google AI Studio: הבא</div>
 </div>
-
-<script>
-function toggleFeedback(btn) {
-  const form = btn.nextElementSibling;
-  const isOpen = form.classList.contains('open');
-  form.classList.toggle('open', !isOpen);
-  btn.textContent = isOpen ? '💬 הוסף הערה' : '✕ סגור';
-}
-
-function submitFeedback(btn, screenName) {
-  const form = btn.closest('.feedback-form');
-  const name = form.querySelector('.feedback-name').value.trim();
-  const comment = form.querySelector('.feedback-text').value.trim();
-  const sentMsg = form.querySelector('.feedback-sent');
-
-  if (!comment) {
-    form.querySelector('.feedback-text').focus();
-    return;
-  }
-
-  btn.textContent = 'שולח...';
-  btn.disabled = true;
-
-  fetch('https://formspree.io/f/maqvopdr', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify({
-      מסך: screenName,
-      שם: name || 'אנונימי',
-      הערה: comment
-    })
-  })
-  .then(r => r.json())
-  .then(() => {
-    sentMsg.style.display = 'block';
-    form.querySelector('.feedback-text').value = '';
-    form.querySelector('.feedback-name').value = '';
-    btn.style.display = 'none';
-    setTimeout(() => {
-      form.classList.remove('open');
-      const toggle = form.previousElementSibling;
-      toggle.textContent = '💬 הוסף הערה';
-      sentMsg.style.display = 'none';
-      btn.style.display = '';
-      btn.textContent = 'שלח הערה';
-      btn.disabled = false;
-    }, 2500);
-  })
-  .catch(() => {
-    btn.textContent = 'שגיאה, נסה שוב';
-    btn.disabled = false;
-  });
-}
-</script>
 
 </body>
 </html>

@@ -7,7 +7,18 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#1D3F5E;--navy-dark:#152E45;--orange:#E8673A;--bg:#f5f5f5;--surface:#fff;--surface2:#f8f8f8;--border:#e5e5e5;--text:#1a1a1a;--text2:#666;--text3:#999}
-body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;padding:40px 20px}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;justify-content:center;align-items:flex-start;padding:40px 20px;gap:24px}
+.flow-panel{width:220px;flex-shrink:0;background:#fff;border:1px solid #e5e5e5;border-radius:14px;padding:14px;position:sticky;top:40px;direction:rtl}
+.flow-panel-title{font-size:11px;font-weight:700;color:#1D3F5E;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
+.flow-panel-title a{font-size:10px;font-weight:500;color:#E8673A;text-decoration:none}
+.flow-step{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;opacity:0.45}
+.flow-step.here{opacity:1}
+.flow-step-num{width:20px;height:20px;border-radius:50%;background:#e8edf2;color:#1D3F5E;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.flow-step.here .flow-step-num{background:#1D3F5E;color:#fff}
+.flow-step-text{font-size:11.5px;color:#333;line-height:1.4}
+.flow-step.here .flow-step-text{font-weight:600;color:#1D3F5E}
+.flow-connector{width:2px;height:10px;background:#e5e5e5;margin:2px 0 2px 9px}
+.here-badge{display:inline-block;font-size:9px;background:#E8673A;color:#fff;padding:1px 6px;border-radius:8px;margin-left:4px;font-weight:600}
 .phone{width:375px;min-height:820px;background:var(--bg);border-radius:32px;border:1px solid #ddd;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
 .status-bar{height:44px;background:var(--navy-dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px}
 .status-bar span{color:#fff;font-size:12px;font-weight:500}
@@ -52,6 +63,29 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI
 </style>
 </head>
 <body>
+<div class="flow-panel">
+  <div class="flow-panel-title">User Flow <a href="user-flows.html" target="_blank">מפה מלאה ↗</a></div>
+  <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-text">הרשמה + Magic Link</div></div>
+  <div class="flow-connector"></div>
+  <div class="flow-step here"><div class="flow-step-num">2</div><div class="flow-step-text">פרופיל אישי <span class="here-badge">כאן</span></div></div>
+  <div class="flow-connector"></div>
+  <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-text">עריכת פרטים + צ'קבוקסים</div></div>
+  <div class="flow-connector"></div>
+  <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-text">שכן מוצא → WhatsApp</div></div>
+  <div style="margin-top:14px;padding-top:10px;border-top:1px solid #f0f0f0;font-size:10.5px;color:#999;line-height:1.5">
+    <strong style="color:#555;display:block;margin-bottom:4px">בדף הזה:</strong>
+    תמונה · שם · שכונה · צ'קבוקסי שירות · פוסטים פעילים · עריכה
+  </div>
+  <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f0f0f0">
+    <button onclick="toggleFB(this)" style="background:none;border:1px solid #e0e0e0;border-radius:8px;padding:6px 12px;font-size:12px;color:#555;cursor:pointer;width:100%;text-align:right;font-family:inherit">💬 הוסף הערה</button>
+    <div class="fb-form" style="display:none;margin-top:8px;flex-direction:column;gap:6px">
+      <input class="fb-name" type="text" placeholder="השם שלך" style="padding:7px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:12px;font-family:inherit;outline:none;color:#1a1a1a">
+      <textarea class="fb-text" placeholder="מה דעתך על המסך?" style="padding:7px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:12px;font-family:inherit;resize:none;outline:none;color:#1a1a1a;min-height:65px"></textarea>
+      <button onclick="sendFB(this,'פרופיל אישי')" style="padding:7px 12px;background:#1D3F5E;border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">שלח</button>
+      <div class="fb-sent" style="display:none;font-size:12px;color:#2E7D32">✓ ההערה נשלחה, תודה!</div>
+    </div>
+  </div>
+</div>
 <div class="phone">
   <div class="status-bar"><span>9:41</span><span></span><span>●●●</span></div>
   <div class="header">
