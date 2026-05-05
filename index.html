@@ -397,9 +397,9 @@ function submitFeedback(btn, screenName) {
   btn.textContent = 'שולח...';
   btn.disabled = true;
 
-  fetch('https://wn8n.uppercut.tech/webhook/hoodvibe-feedback', {
+  fetch('https://formspree.io/f/maqvopdr', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
     body: JSON.stringify({
       מסך: screenName,
       שם: name || 'אנונימי',
